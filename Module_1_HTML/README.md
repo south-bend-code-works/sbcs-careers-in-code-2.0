@@ -1,4 +1,4 @@
-# Module 1
+# Module 1 HTML
 
 ## What is a Web Page?
 A web page is a document that can be displayed in a [web browser](https://developer.mozilla.org/en-US/docs/Glossary/Browser). It is written using web technologies such as [HTML](https://developer.mozilla.org/en-US/docs/Web/HTML), [CSS](https://developer.mozilla.org/en-US/docs/Web/CSS), and [JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript).
