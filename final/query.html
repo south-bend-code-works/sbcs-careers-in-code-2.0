@@ -161,53 +161,68 @@
     </style>
 </head>
 <body>
-    <div class="container">
-        <section class="data-tables">
-            <div class="data-table">
-                <h2>Movies Table</h2>
+    <main class="container">
+        <header>
+            <h1>SQL Query Client</h1>
+        </header>
+
+        <section class="data-tables" aria-label="Database Tables">
+            <article class="data-table">
+                <header>
+                    <h2>Movies Table</h2>
+                </header>
                 <table class="result-table" id="moviesTable">
                     <thead>
                         <tr>
-                            <th>ID</th>
-                            <th>Title</th>
-                            <th>Genre</th>
-                            <th>Release Year</th>
-                            <th>Poster</th>
+                            <th scope="col">ID</th>
+                            <th scope="col">Title</th>
+                            <th scope="col">Genre</th>
+                            <th scope="col">Release Year</th>
+                            <th scope="col">Poster</th>
                         </tr>
                     </thead>
                     <tbody></tbody>
                 </table>
-            </div>
+            </article>
             
-            <div class="data-table">
-                <h2>Box Office Stats</h2>
+            <article class="data-table">
+                <header>
+                    <h2>Box Office Stats</h2>
+                </header>
                 <table class="result-table" id="statsTable">
                     <thead>
                         <tr>
-                            <th>Movie ID</th>
-                            <th>Score</th>
-                            <th>Box Office</th>
+                            <th scope="col">Movie ID</th>
+                            <th scope="col">Score</th>
+                            <th scope="col">Box Office</th>
                         </tr>
                     </thead>
                     <tbody></tbody>
                 </table>
-            </div>
+            </article>
         </section>
 
-        <h1>SQL Query Client</h1>
+        <section class="query-section" aria-label="SQL Query Interface">
+            <form id="queryForm" role="form">
+                <div class="form-group">
+                    <label for="queryTextarea">SQL Query:</label>
+                    <textarea 
+                        id="queryTextarea" 
+                        name="query"
+                        rows="5" 
+                        placeholder="Enter your SQL query here..."
+                        aria-label="SQL query input">SELECT * FROM movies</textarea>
+                </div>
+                
+                <div class="button-group">
+                    <button type="button" id="executeButton" aria-label="Execute SQL query">Execute Query</button>
+                    <button type="button" id="clearButton" aria-label="Clear query results">Clear Results</button>
+                </div>
+            </form>
+        </section>
         
-        <div class="query-section">
-            <label for="queryTextarea">SQL Query:</label>
-            <textarea id="queryTextarea" rows="5" placeholder="Enter your SQL query here...">SELECT * FROM movies</textarea>
-            
-            <div class="button-group">
-                <button id="executeButton">Execute Query</button>
-                <button id="clearButton">Clear Results</button>
-            </div>
-        </div>
-        
-        <div id="resultSection" style="overflow: auto;"></div>
-    </div>
+        <section id="resultSection" class="query-results" aria-label="Query Results" role="region"></section>
+    </main>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.12.0/sql-asm.min.js"
             integrity="sha512-/oFHP4rlsoCmqYede816F0LrR7A6MsjA2j/hIyl/tCLKc54eBs1+QS3ORe/3zQoRpzywDhMq9Qy8APLZcngQxw=="
