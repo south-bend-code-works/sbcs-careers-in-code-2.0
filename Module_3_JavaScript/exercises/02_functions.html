@@ -1,0 +1,24 @@
+<!-- Create a function that formats movie information into a string -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Movie Functions</title>
+</head>
+<body>
+    <script>
+        // Create a function that takes title, year, and rating
+        function formatMovieInfo(title, year, rating) {
+            return `Movie: ${title} (${year}) - Rating: ${rating}/10`;
+        }
+
+        // Test the function with example data
+        const movieInfo = formatMovieInfo("The Matrix", 1999, 8.7);
+        document.write(`<p>${movieInfo}</p>`);
+
+        // Test with another movie
+        const anotherMovie = formatMovieInfo("Inception", 2010, 8.8);
+        document.write(`<p>${anotherMovie}</p>`);
+    </script>
+</body>
+</html>

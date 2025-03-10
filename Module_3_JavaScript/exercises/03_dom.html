@@ -1,0 +1,50 @@
+<!-- Create a movie list and add the ability to add new movies -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Movie DOM Manipulation</title>
+</head>
+<body>
+    <ul id="movieList">
+        <li>The Matrix (1999)</li>
+    </ul>
+    <button id="addMovie">Add Movie</button>
+    
+    <script>
+        // Get references to DOM elements
+        const movieList = document.getElementById('movieList');
+        const addMovieButton = document.getElementById('addMovie');
+
+        // Array of movies to add
+        const movies = [
+            "Inception (2010)",
+            "The Dark Knight (2008)",
+            "Interstellar (2014)"
+        ];
+
+        // Keep track of which movie to add next
+        let currentMovieIndex = 0;
+
+        // Add click handler to button that adds a new movie to the list
+        addMovieButton.addEventListener('click', () => {
+            if (currentMovieIndex < movies.length) {
+                // Create new list item
+                const newMovie = document.createElement('li');
+                newMovie.textContent = movies[currentMovieIndex];
+                
+                // Add to list
+                movieList.appendChild(newMovie);
+                
+                // Move to next movie
+                currentMovieIndex++;
+                
+                // Disable button if we've added all movies
+                if (currentMovieIndex >= movies.length) {
+                    addMovieButton.disabled = true;
+                }
+            }
+        });
+    </script>
+</body>
+</html>
