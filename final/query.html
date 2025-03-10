@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <title>SQL Query Client</title>
+    <style>
+        body {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 0 20px;
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+        }
+
+        .container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .query-section {
+            margin-bottom: 20px;
+        }
+
+        .query-history {
+            margin-bottom: 20px;
+        }
+
+        .query-history select {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        #queryTextarea {
+            width: 100%;
+            font-family: monospace;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            resize: vertical;
+        }
+
+        .button-group {
+            margin: 10px 0;
+        }
+
+        button {
+            padding: 10px 20px;
+            margin-right: 10px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        #executeButton {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        #executeButton:hover {
+            background-color: #45a049;
+        }
+
+        #clearButton {
+            background-color: #f44336;
+            color: white;
+        }
+
+        #clearButton:hover {
+            background-color: #da190b;
+        }
+
+        .result-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            background-color: white;
+        }
+
+        .result-table th, .result-table td {
+            border: 1px solid #ddd;
+            padding: 12px 8px;
+            text-align: left;
+        }
+
+        .result-table th {
+            background-color: #f5f5f5;
+            font-weight: bold;
+            position: sticky;
+            top: 0;
+        }
+
+        .result-table tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        .result-table tr:hover {
+            background-color: #f5f5f5;
+        }
+
+        .error {
+            color: white;
+            padding: 10px;
+            background-color: #f44336;
+            border-radius: 4px;
+            margin: 10px 0;
+        }
+
+        .success {
+            color: white;
+            padding: 10px;
+            background-color: #4CAF50;
+            border-radius: 4px;
+            margin: 10px 0;
+        }
+
+        .stats {
+            color: #666;
+            font-size: 0.9em;
+            margin-top: 10px;
+        }
+
+        .data-tables {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .data-table {
+            background: white;
+            padding: 0 20px 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            height: 400px;
+            overflow: auto;
+        }
+        
+        .data-table table {
+            width: 100%;
+        }
+        
+        .data-table thead {
+            position: sticky;
+            top: -1px;
+            background: white;
+            z-index: 1;
+        }
+        
+        .data-table h2 {
+            margin-top: 0;
+            color: #333;
+            margin-bottom: 15px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- New section for displaying tables -->
+        <section class="data-tables">
+            <div class="data-table">
+                <h2>Movies Table</h2>
+                <table class="result-table" id="moviesTable">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Title</th>
+                            <th>Genre</th>
+                            <th>Release Year</th>
+                            <th>Poster</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+            
+            <div class="data-table">
+                <h2>Box Office Stats</h2>
+                <table class="result-table" id="statsTable">
+                    <thead>
+                        <tr>
+                            <th>Movie ID</th>
+                            <th>Score</th>
+                            <th>Box Office</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </section>
+
+        <h1>SQL Query Client</h1>
+        
+        <div class="query-section">
+            <label for="queryTextarea">SQL Query:</label>
+            <textarea id="queryTextarea" rows="5" placeholder="Enter your SQL query here...">SELECT * FROM movies</textarea>
+            
+            <div class="button-group">
+                <button id="executeButton">Execute Query</button>
+                <button id="clearButton">Clear Results</button>
+            </div>
+        </div>
+        
+        <div id="resultSection"></div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.12.0/sql-asm.min.js"
+            integrity="sha512-/oFHP4rlsoCmqYede816F0LrR7A6MsjA2j/hIyl/tCLKc54eBs1+QS3ORe/3zQoRpzywDhMq9Qy8APLZcngQxw=="
+            crossorigin="anonymous"
+            referrerpolicy="no-referrer">
+    </script>
+    <script src="movies.js"></script>
+    <script src="stats.js"></script>
+    <script src="database.js"></script>
+    <script src="client.js"></script>
+    
+    <!-- New script to populate the tables -->
+    <script>
+        function populateMoviesTable() {
+            const tbody = document.querySelector('#moviesTable tbody');
+            tbody.innerHTML = movies.map(movie => `
+                <tr>
+                    <td>${movie.id}</td>
+                    <td>${movie.title}</td>
+                    <td>${movie.director}</td>
+                    <td>${movie.release_year}</td>
+                    <td><img src="${movie.poster}" alt="${movie.title}" height="50"></td>
+                </tr>
+            `).join('');
+        }
+
+        function populateStatsTable() {
+            const tbody = document.querySelector('#statsTable tbody');
+            tbody.innerHTML = stats.map(stat => `
+                <tr>
+                    <td>${stat.movie_id}</td>
+                    <td>${stat.score}</td>
+                    <td>${stat.box_office}</td>
+                </tr>
+            `).join('');
+        }
+
+        // Populate tables when the page loads
+        window.addEventListener('load', () => {
+            populateMoviesTable();
+            populateStatsTable();
+        });
+    </script>
+</body>
+</html>
