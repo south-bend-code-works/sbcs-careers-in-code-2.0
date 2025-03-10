@@ -7,7 +7,20 @@
 </head>
 <body>
     <script>
-        // Your code here
+        // Create variables for movie information
+        const movieTitle = "The Matrix";
+        const releaseYear = 1999;
+        const rating = 8.7;
+        const isStreamingAvailable = true;
+
+        // Display the variables in the document
+        document.write(`
+            <h2>Movie Information:</h2>
+            <p>Title: ${movieTitle}</p>
+            <p>Year: ${releaseYear}</p>
+            <p>Rating: ${rating}/10</p>
+            <p>Available for Streaming: ${isStreamingAvailable ? "Yes" : "No"}</p>
+        `);
     </script>
 </body>
 </html>
