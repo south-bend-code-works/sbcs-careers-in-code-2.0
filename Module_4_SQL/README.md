@@ -17,13 +17,20 @@ SQL allows you to:
 Tables store data in rows and columns, with each column having a specific data type:
 
 ```sql
--- Creating a table
+-- Creating movies table
 CREATE TABLE movies (
     id INTEGER PRIMARY KEY,
     title TEXT,
+    director TEXT,
     release_year INTEGER,
-    rating DECIMAL(2,1),
-    is_available BOOLEAN
+    poster TEXT
+);
+
+-- Creating stats table
+CREATE TABLE stats (
+    movie_id INTEGER PRIMARY KEY,
+    score INTEGER,
+    box_office INTEGER
 );
 ```
 
@@ -53,45 +60,42 @@ FROM movies;
 
 2. Adding Filters (WHERE):
 ```sql
-SELECT title, release_year 
+SELECT title, director 
 FROM movies 
 WHERE release_year > 2000;
 ```
 
 3. Adding Joins (JOIN):
 ```sql
-SELECT movies.title, directors.name 
+SELECT movies.title, stats.score 
 FROM movies 
-JOIN directors ON movies.director_id = directors.id 
+JOIN stats ON movies.id = stats.movie_id 
 WHERE release_year > 2000;
 ```
 
 4. Adding Groups (GROUP BY):
 ```sql
-SELECT release_year, COUNT(*) as movie_count 
+SELECT director, COUNT(*) as movie_count 
 FROM movies 
-WHERE rating > 7 
-GROUP BY release_year;
+GROUP BY director;
 ```
 
 5. Filtering Groups (HAVING):
 ```sql
-SELECT release_year, COUNT(*) as movie_count 
+SELECT director, COUNT(*) as movie_count 
 FROM movies 
-WHERE rating > 7 
-GROUP BY release_year 
-HAVING movie_count > 5;
+GROUP BY director 
+HAVING movie_count > 1;
 ```
 
 6. Complete Example:
 ```sql
-SELECT release_year, COUNT(*) as movie_count 
+SELECT director, AVG(stats.score) as avg_score, COUNT(*) as movie_count 
 FROM movies 
-JOIN directors ON movies.director_id = directors.id 
-WHERE rating > 7 
-GROUP BY release_year 
-HAVING movie_count > 5 
-ORDER BY movie_count DESC 
+JOIN stats ON movies.id = stats.movie_id 
+GROUP BY director 
+HAVING movie_count > 1 
+ORDER BY avg_score DESC 
 LIMIT 3;
 ```
 
@@ -103,13 +107,13 @@ Queries are used to retrieve data from tables:
 SELECT * FROM movies;
 
 -- Select specific columns
-SELECT title, release_year 
+SELECT title, director, release_year 
 FROM movies;
 
 -- Filter results
-SELECT title, rating 
+SELECT title, director 
 FROM movies 
-WHERE rating > 8.0;
+WHERE release_year > 2000;
 ```
 
 ### Inserting Data
@@ -117,13 +121,13 @@ Add new records to tables:
 
 ```sql
 -- Single record insertion
-INSERT INTO movies (title, release_year, rating) 
-VALUES ('The Matrix', 1999, 8.7);
+INSERT INTO movies (id, title, director, release_year, poster) 
+VALUES (10, 'Inception', 'Christopher Nolan', 2010, 'inception.jpg');
 
 -- Multiple record insertion
-INSERT INTO movies (title, release_year, rating) VALUES 
-    ('Inception', 2010, 8.8),
-    ('Interstellar', 2014, 8.6);
+INSERT INTO stats (movie_id, score, box_office) VALUES 
+    (10, 74, 292587330),
+    (11, 73, 172076928);
 ```
 
 ### Updating Records
@@ -131,14 +135,14 @@ Modify existing data in tables:
 
 ```sql
 -- Update single value
-UPDATE movies 
-SET rating = 9.0 
-WHERE title = 'The Matrix';
+UPDATE stats 
+SET score = 100 
+WHERE movie_id = 1;
 
 -- Update multiple values
-UPDATE movies 
-SET rating = rating + 0.1 
-WHERE release_year < 2000;
+UPDATE stats 
+SET box_office = box_office * 1.1 
+WHERE score > 90;
 ```
 
 ## Common Use Cases
@@ -146,19 +150,20 @@ WHERE release_year < 2000;
 ### Filtering and Sorting
 ```sql
 -- Filter by condition
-SELECT title, release_year 
+SELECT title, director 
 FROM movies 
-WHERE release_year >= 2000;
+WHERE director LIKE '%Nolan%';
 
 -- Sort results
-SELECT title, rating 
+SELECT title, release_year 
 FROM movies 
-ORDER BY rating DESC;
+ORDER BY release_year DESC;
 
 -- Limit results
-SELECT title, rating 
-FROM movies 
-ORDER BY rating DESC 
+SELECT m.title, s.score 
+FROM movies m 
+JOIN stats s ON m.id = s.movie_id 
+ORDER BY s.score DESC 
 LIMIT 5;
 ```
 
@@ -168,29 +173,33 @@ LIMIT 5;
 SELECT COUNT(*) 
 FROM movies;
 
--- Average rating by year
-SELECT release_year, AVG(rating) 
-FROM movies 
-GROUP BY release_year;
+-- Average score by director
+SELECT director, AVG(s.score) as avg_score 
+FROM movies m 
+JOIN stats s ON m.id = s.movie_id 
+GROUP BY director;
 
--- Find highest rated movie
-SELECT title, MAX(rating) 
-FROM movies;
+-- Highest box office
+SELECT m.title, s.box_office 
+FROM movies m 
+JOIN stats s ON m.id = s.movie_id 
+ORDER BY s.box_office DESC 
+LIMIT 1;
 ```
 
 ### Joining Tables
 ```sql
--- Join movies with directors
-SELECT movies.title, directors.name 
-FROM movies 
-JOIN directors ON movies.director_id = directors.id;
+-- Join movies with stats
+SELECT m.title, m.director, s.score, s.box_office 
+FROM movies m 
+JOIN stats s ON m.id = s.movie_id;
 
--- Count movies by genre
-SELECT genres.name, COUNT(*) 
-FROM movies 
-JOIN movie_genres ON movies.id = movie_genres.movie_id 
-JOIN genres ON movie_genres.genre_id = genres.id 
-GROUP BY genres.name;
+-- Average box office by decade
+SELECT (release_year/10)*10 as decade, 
+       AVG(s.box_office) as avg_box_office 
+FROM movies m 
+JOIN stats s ON m.id = s.movie_id 
+GROUP BY decade;
 ```
 
 ## Resources
