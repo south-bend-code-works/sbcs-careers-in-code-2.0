@@ -162,7 +162,6 @@
 </head>
 <body>
     <div class="container">
-        <!-- New section for displaying tables -->
         <section class="data-tables">
             <div class="data-table">
                 <h2>Movies Table</h2>
@@ -207,7 +206,7 @@
             </div>
         </div>
         
-        <div id="resultSection"></div>
+        <div id="resultSection" style="overflow: auto;"></div>
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.12.0/sql-asm.min.js"
@@ -219,8 +218,7 @@
     <script src="stats.js"></script>
     <script src="database.js"></script>
     <script src="client.js"></script>
-    
-    <!-- New script to populate the tables -->
+
     <script>
         function populateMoviesTable() {
             const tbody = document.querySelector('#moviesTable tbody');
@@ -246,7 +244,6 @@
             `).join('');
         }
 
-        // Populate tables when the page loads
         window.addEventListener('load', () => {
             populateMoviesTable();
             populateStatsTable();
