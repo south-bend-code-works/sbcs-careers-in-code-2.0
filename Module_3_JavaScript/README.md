@@ -118,4 +118,3 @@ function updateCounter() {
 
 - [JavaScript MDN Documentation](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
 - [JavaScript Crash Course](https://www.youtube.com/watch?v=hdI2bqOjy3c)
-- [JavaScript.info](https://javascript.info/)
