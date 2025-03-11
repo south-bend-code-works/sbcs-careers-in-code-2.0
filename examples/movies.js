@@ -156,8 +156,8 @@ const movies = [
     {
         "id": 22,
         "title": "Seinfeld",
-        "director": "N\/A",
-        "year": "1989\u20131998",
+        "director": "Jerry Seinfeld",
+        "year": "1989",
         "poster": "https:\/\/m.media-amazon.com\/images\/M\/MV5BMmRjNjZjN2ItN2FkYi00ZDg0LWExN2EtMTU2ODUwNWU1M2NhXkEyXkFqcGc@._V1_SX300.jpg"
     },
     {
