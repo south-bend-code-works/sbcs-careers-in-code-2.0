@@ -11,29 +11,6 @@ SQL allows you to:
 - Delete unwanted records
 - Create relationships between different data sets
 
-## Basic SQL Concepts
-
-### Tables and Data Types
-Tables store data in rows and columns, with each column having a specific data type:
-
-```sql
--- Creating movies table
-CREATE TABLE movies (
-    id INTEGER PRIMARY KEY,
-    title TEXT,
-    director TEXT,
-    year INTEGER,
-    poster TEXT
-);
-
--- Creating stats table
-CREATE TABLE stats (
-    movie_id INTEGER PRIMARY KEY,
-    score INTEGER,
-    box_office INTEGER
-);
-```
-
 ## SQL Syntax Order
 
 SQL queries must follow a specific order of clauses. While not all clauses are required, when used, they must appear in this sequence:
