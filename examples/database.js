@@ -8,35 +8,36 @@ initSqlJs({
             id INTEGER PRIMARY KEY,
             title TEXT,
             director TEXT,
-            release_year INTEGER,
+            year INTEGER,
             poster TEXT
         );
     `);
 
     let stmt = db.prepare(`
-        INSERT INTO movies (id, title, director, release_year, poster) 
+        INSERT INTO movies (id, title, director, year, poster) 
         VALUES (?, ?, ?, ?, ?)
     `);
 
-    for (const { id, title, director, release_year, poster } of movies) {
-        stmt.run([id, title, director, release_year, poster]);
+    for (const { id, title, director, year, poster } of movies) {
+        stmt.run([id, title, director, year, poster]);
     }
 
     db.run(`
         CREATE TABLE IF NOT EXISTS stats (
-            movie_id INTEGER PRIMARY KEY,
+            id INTEGER PRIMARY KEY,
+            movie_id INTEGER,
             score INTEGER,
             box_office INTEGER
         );
     `);
 
     stmt = db.prepare(`
-        INSERT INTO stats (movie_id, score, box_office) 
-        VALUES (?, ?, ?)
+        INSERT INTO stats (id, movie_id, score, box_office) 
+        VALUES (?, ?, ?, ?)
     `);
 
-    for (const { movie_id, score, box_office } of stats) {
-        stmt.run([movie_id, score, box_office]);
+    for (const { id, movie_id, score, box_office } of stats) {
+        stmt.run([id, movie_id, score, box_office]);
     }
 
     stmt.free();

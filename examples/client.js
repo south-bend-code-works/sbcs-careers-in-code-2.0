@@ -21,9 +21,6 @@ document.getElementById('executeButton').addEventListener('click', () => {
         }
         
         const table = document.createElement('table');
-        table.className = 'result-table';
-        
-        // Create header
         const thead = document.createElement('thead');
         const headerRow = document.createElement('tr');
         result.columns.forEach(column => {
@@ -33,8 +30,7 @@ document.getElementById('executeButton').addEventListener('click', () => {
         });
         thead.appendChild(headerRow);
         table.appendChild(thead);
-        
-        // Create body
+
         const tbody = document.createElement('tbody');
         result.values.forEach(row => {
             const tr = document.createElement('tr');
@@ -51,9 +47,8 @@ document.getElementById('executeButton').addEventListener('click', () => {
         resultSection.appendChild(table);
         
         const stats = document.createElement('div');
-        stats.className = 'stats';
         stats.textContent = `Found ${result.values.length} rows in ${executionTime}ms`;
-        resultSection.appendChild(stats);
+        resultSection.prepend(stats);
         
     } catch (error) {
         resultSection.innerHTML = `<div class="error">Error: ${error.message}</div>`;

@@ -36,6 +36,9 @@ function greet(name) {
     return `Hello, ${name}!`;
 }
 
+// Call the function.
+greet("John")
+
 // Using the function
 console.log(greet("John")); // Output: Hello, John!
 ```

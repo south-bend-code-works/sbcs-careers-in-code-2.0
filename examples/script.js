@@ -19,10 +19,10 @@ submitButton.addEventListener('click', () => {
  */
 function renderMovies(queryResult) {
     return transformSqlResult(queryResult)
-        .map(({id, title, poster, release_year}) => `
+        .map(({id, title, poster, year}) => `
       <div id="movie-${id}">
         <h2>${title}</h2>
-        <p>${release_year}</p>
+        <p>${year}</p>
         <img src="${poster}" alt="${title}" />
       </div>
     `).join('');
@@ -50,6 +50,6 @@ const transformSqlResult = ({columns = [], values = []} = {}) =>
  * @property {number} id - The unique identifier for the movie.
  * @property {string} title - The title of the movie.
  * @property {string} genre - The genre of the movie.
- * @property {number} release_year - The year the movie was released.
+ * @property {number} year - The year the movie was released.
  * @property {string} poster - The media art for the movie.
  */

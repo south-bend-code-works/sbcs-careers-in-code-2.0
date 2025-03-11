@@ -39,6 +39,8 @@
             border: 1px solid #ddd;
             padding: 8px;
             text-align: left;
+            max-width: 100px;
+            overflow: hidden;
         }
 
         textarea {
@@ -82,7 +84,7 @@
                 <tr>
                     <th>id</th>
                     <th>title</th>
-                    <th>genre</th>
+                    <th>director</th>
                     <th>year</th>
                     <th>poster</th>
                 </tr>
@@ -98,6 +100,7 @@
             <table id="statsTable">
                 <thead>
                 <tr>
+                    <th>id</th>
                     <th>movie_id</th>
                     <th>score</th>
                     <th>box_office</th>
@@ -135,7 +138,7 @@
                     <td>${movie.id}</td>
                     <td>${movie.title}</td>
                     <td>${movie.director}</td>
-                    <td>${movie.release_year}</td>
+                    <td>${movie.year}</td>
                     <td><img src="${movie.poster}" alt="${movie.title}" height="50"></td>
                 </tr>
             `).join('');
@@ -145,6 +148,7 @@
         const tbody = document.querySelector('#statsTable tbody');
         tbody.innerHTML = stats.map(stat => `
                 <tr>
+                    <td>${stat.id}</td>
                     <td>${stat.movie_id}</td>
                     <td>${stat.score}</td>
                     <td>${stat.box_office}</td>

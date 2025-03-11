@@ -22,7 +22,7 @@ CREATE TABLE movies (
     id INTEGER PRIMARY KEY,
     title TEXT,
     director TEXT,
-    release_year INTEGER,
+    year INTEGER,
     poster TEXT
 );
 
@@ -54,7 +54,7 @@ LIMIT 10                            -- 8. How many rows to return
 
 1. Basic Query (SELECT, FROM):
 ```sql
-SELECT title, release_year 
+SELECT title, year 
 FROM movies;
 ```
 
@@ -62,7 +62,7 @@ FROM movies;
 ```sql
 SELECT title, director 
 FROM movies 
-WHERE release_year > 2000;
+WHERE year > 2000;
 ```
 
 3. Adding Joins (JOIN):
@@ -70,7 +70,7 @@ WHERE release_year > 2000;
 SELECT movies.title, stats.score 
 FROM movies 
 JOIN stats ON movies.id = stats.movie_id 
-WHERE release_year > 2000;
+WHERE year > 2000;
 ```
 
 4. Adding Groups (GROUP BY):
@@ -107,13 +107,13 @@ Queries are used to retrieve data from tables:
 SELECT * FROM movies;
 
 -- Select specific columns
-SELECT title, director, release_year 
+SELECT title, director, year 
 FROM movies;
 
 -- Filter results
 SELECT title, director 
 FROM movies 
-WHERE release_year > 2000;
+WHERE year > 2000;
 ```
 
 ### Inserting Data
@@ -121,7 +121,7 @@ Add new records to tables:
 
 ```sql
 -- Single record insertion
-INSERT INTO movies (id, title, director, release_year, poster) 
+INSERT INTO movies (id, title, director, year, poster) 
 VALUES (10, 'Inception', 'Christopher Nolan', 2010, 'inception.jpg');
 
 -- Multiple record insertion
@@ -155,9 +155,9 @@ FROM movies
 WHERE director LIKE '%Nolan%';
 
 -- Sort results
-SELECT title, release_year 
+SELECT title, year 
 FROM movies 
-ORDER BY release_year DESC;
+ORDER BY year DESC;
 
 -- Limit results
 SELECT m.title, s.score 
@@ -190,12 +190,12 @@ LIMIT 1;
 ### Joining Tables
 ```sql
 -- Join movies with stats
-SELECT m.title, m.director, s.score, s.box_office 
-FROM movies m 
-JOIN stats s ON m.id = s.movie_id;
+SELECT * 
+FROM movies 
+JOIN stats ON movies.id = stats.movie_id;
 
 -- Average box office by decade
-SELECT (release_year/10)*10 as decade, 
+SELECT (year/10)*10 as decade, 
        AVG(s.box_office) as avg_box_office 
 FROM movies m 
 JOIN stats s ON m.id = s.movie_id 
