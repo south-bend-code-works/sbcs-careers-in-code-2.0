@@ -15,7 +15,7 @@ const stats = [
         "id": 12,
         "movie_id": 2,
         "score": 97,
-        "box_office": 0
+        "box_office": 2000000
     },
     {
         "id": 13,
@@ -39,7 +39,7 @@ const stats = [
         "id": 16,
         "movie_id": 6,
         "score": 97,
-        "box_office": 0
+        "box_office": 2000000
     },
     {
         "id": 17,
@@ -135,7 +135,7 @@ const stats = [
         "id": 32,
         "movie_id": 22,
         "score": 0,
-        "box_office": 0
+        "box_office": 534987076
     },
     {
         "id": 33,
@@ -254,8 +254,8 @@ const stats = [
     {
         "id": 52,
         "movie_id": 42,
-        "score": 0,
-        "box_office": 0
+        "score": 80,
+        "box_office": 1000000
     },
     {
         "id": 53,
@@ -291,7 +291,7 @@ const stats = [
         "id": 58,
         "movie_id": 48,
         "score": 90,
-        "box_office": 0
+        "box_office": 3000000
     },
     {
         "id": 59,
