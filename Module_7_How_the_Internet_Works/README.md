@@ -1,6 +1,6 @@
 # Module 7 How the Internet Works
 
-## Overview
+## Overview 
 
 The Internet is the backbone of the Web, the technical infrastructure that makes the Web possible.
 At its most basic, the Internet is a large network of computers which communicate all together.
