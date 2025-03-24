@@ -5,7 +5,9 @@ const resultSection = document.getElementById('resultSection');
 submitButton.addEventListener('click', () => {
     try {
         const [queryResult] = db.exec(queryTextarea.value) || [];
-        resultSection.innerHTML = queryResult ? renderMovies(queryResult) : 'No results.';
+        resultSection.innerHTML = queryResult 
+            ? renderMovies(queryResult) 
+            : 'No results.';
     } catch (error) {
         resultSection.innerHTML = `Error: ${error.message}`;
     }
