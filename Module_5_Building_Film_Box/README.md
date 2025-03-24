@@ -90,7 +90,7 @@ Connect the form to the JavaScript code by adding the correct ids to the form el
 ```html
 <form>
     <label for="queryTextarea">SQL Query</label>
-    <textarea id="queryTextarea" name="query" rows="5" cols="60" placeholder="SQL query">SELECT * FROM movies</textarea>
+    <textarea id="queryTextarea" rows="5" cols="60" placeholder="SQL query">SELECT * FROM movies</textarea>
     <button id="submitButton" type="button">Execute SQL</button>
 </form>
 ```
