@@ -92,7 +92,7 @@ Hyperlinks, usually called links, are a foundational concept behind the Web.
 
 A link is a text string tied to a URL and we use links to allow easy jumping from one document to another.
 
-There are two types of links:
+There are three types of links:
 - **Internal links**: A link between two webpages, where both webpages belong to the same website, is called an internal link. Without internal links, there's no such thing as a website (unless, of course, it's a one-page website).
 - **External links**: A link from your webpage to someone else's webpage. Without external links, there is no Web, since the Web is a network of webpages. Use external links to provide information besides the content available through your webpage.
 - **Incoming links**: A link from someone else's webpage to your site. It's the opposite of an external link. Note that you don't have to link back when someone links to your site.
