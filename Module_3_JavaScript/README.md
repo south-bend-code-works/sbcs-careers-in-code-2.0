@@ -17,11 +17,11 @@ Variables store data that can be used and modified throughout your code:
 
 ```javascript
 // Variables
-let name = "John";              // String
-const age = 25;                 // Number
-let isStudent = true;           // Boolean
-let colors = ["red", "blue"];   // Array
-let person = {                  // Object
+let name = "John";                // String
+var age = 25;                     // Number
+const isStudent = true;           // Boolean
+const colors = ["red", "blue"];   // Array
+const person = {                  // Object
     name: "John",
     age: 25
 };
@@ -37,7 +37,7 @@ function greet(name) {
 }
 
 // Call the function.
-greet("John")
+const name = greet("John")
 
 // Using the function
 console.log(greet("John")); // Output: Hello, John!
